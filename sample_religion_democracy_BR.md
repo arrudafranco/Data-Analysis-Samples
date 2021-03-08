@@ -1,30 +1,36 @@
----
-title: "Sample - Brazilian Religion & Faith in Democracy"
-author: "Gustavo Arruda"
-date: "3/7/2021"
-output: github_document
----
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(ggplot2)
-library(RColorBrewer)
-theme_set(theme_minimal())
-sys.source('data_cleaning.R', envir = knitr::knit_global())
-sys.source('data_analysis.R', envir = knitr::knit_global())
-```
+Sample - Brazilian Religion & Faith in Democracy
+================
+Gustavo Arruda
+3/7/2021
 
 ## Introduction
 
-This paper contains an exploratory analysis of the relationship between religious and democracy support variables in Brazil. It was part of a University of Chicago course called "Computation for the Social Sciences" taught in the fall of 2020. I used 2013-2018 data from the [Latinobarometro survey](https://www.latinobarometro.org/), which measures variations in Latin American political sentiments. 
+This paper contains an exploratory analysis of the relationship between
+religious and democracy support variables in Brazil. It was part of a
+University of Chicago course called “Computation for the Social
+Sciences” taught in the fall of 2020. I used 2013-2018 data from the
+[Latinobarometro survey](https://www.latinobarometro.org/), which
+measures variations in Latin American political sentiments.
 
- - **Appendix 1** displays the code in **data_cleaning.R**. Running the [data_cleaning.R](https://raw.githubusercontent.com/arrudafranco/Homework-6/master/data_cleaning.R) script loads, standardizes and combines the datasets into an analyzable output.
- - **Appendix 2** displays the code in **data_analysis.R**. The [data_analysis.R](https://raw.githubusercontent.com/arrudafranco/Homework-6/master/data_analysis.R) script takes the outputs of data_cleaning.R, then produces its own outputs describing the relations among the variables. Both scripts are necessary to produce the graphs within this paper.
- - All files, data or scripts, mentioned in this paper are available at this [GitHub Repository](https://github.com/arrudafranco/Homework-6).
-  
+-   **Appendix 1** displays the code in **data\_cleaning.R**. Running
+    the
+    [data\_cleaning.R](https://raw.githubusercontent.com/arrudafranco/Homework-6/master/data_cleaning.R)
+    script loads, standardizes and combines the datasets into an
+    analyzable output.
+-   **Appendix 2** displays the code in **data\_analysis.R**. The
+    [data\_analysis.R](https://raw.githubusercontent.com/arrudafranco/Homework-6/master/data_analysis.R)
+    script takes the outputs of data\_cleaning.R, then produces its own
+    outputs describing the relations among the variables. Both scripts
+    are necessary to produce the graphs within this paper.
+-   All files, data or scripts, mentioned in this paper are available at
+    this [GitHub
+    Repository](https://github.com/arrudafranco/Homework-6).
+
 Used Libraries:
 
-- To run the code in this repository, the libraries used were:
-```r
+-   To run the code in this repository, the libraries used were:
+
+``` r
 library(readxl)
 #Used to load the codebook, originally found in xlsx format.
 library(sjlabelled)
@@ -35,16 +41,40 @@ library(RColorBrewer)
 
 ## Data
 
-In the 1990s, several Latin American countries went through re-democratization after long military dictatorships. Their potential opening to a globalizing economy brought international attention the region. In the negotiation process of an emerging MERCOSUL, the European Commission funded the beginning of the **Latinobarometro** initiative. The initiative followed the successful implementation of the annual Eurobarometer survey in the 1970s, allied with local efforts to understand public opinion in regards to democracy and authoritarianism. Since then **Latinobarometro** has been yearly surveying around 18.000 people in 18 different countries, measuring the local political climate. More information about this research initiative and the data used in this analysis can be found freely available at their [official website](https://www.latinobarometro.org/).
+In the 1990s, several Latin American countries went through
+re-democratization after long military dictatorships. Their potential
+opening to a globalizing economy brought international attention the
+region. In the negotiation process of an emerging MERCOSUL, the European
+Commission funded the beginning of the **Latinobarometro** initiative.
+The initiative followed the successful implementation of the annual
+Eurobarometer survey in the 1970s, allied with local efforts to
+understand public opinion in regards to democracy and authoritarianism.
+Since then **Latinobarometro** has been yearly surveying around 18.000
+people in 18 different countries, measuring the local political climate.
+More information about this research initiative and the data used in
+this analysis can be found freely available at their [official
+website](https://www.latinobarometro.org/).
 
 ## Research Question
 
-Fears of authoritarianism have been arising again throughout the international landscape in the last few years. In Brazil more specifically, the 2018 election of president Jair Bolsonaro has demanded particular attention from social scientists and observers of democracy. One of the most puzzling dimensions of this phenomenon has been the touted alliance of fast rising Evangelical groups with the political right-wing. **This brief analysis is meant to explore which are the possible relationships between _religious affiliation_ and _sentiments towards democracy_ in Brazil between the 2018 presidential election and its previous one in 2013.** As a limitation, the Latinobarometro survey is not especially focused in Brazil, which might carry deficiencies in sampling compared to a large scale national survey of the same type. On the other hand, at this point the survey carries expertise in tracking political sentiment in the region for decades.
+Fears of authoritarianism have been arising again throughout the
+international landscape in the last few years. In Brazil more
+specifically, the 2018 election of president Jair Bolsonaro has demanded
+particular attention from social scientists and observers of democracy.
+One of the most puzzling dimensions of this phenomenon has been the
+touted alliance of fast rising Evangelical groups with the political
+right-wing. **This brief analysis is meant to explore which are the
+possible relationships between *religious affiliation* and *sentiments
+towards democracy* in Brazil between the 2018 presidential election and
+its previous one in 2013.** As a limitation, the Latinobarometro survey
+is not especially focused in Brazil, which might carry deficiencies in
+sampling compared to a large scale national survey of the same type. On
+the other hand, at this point the survey carries expertise in tracking
+political sentiment in the region for decades.
 
 ## Religious Backgrounds
 
-
-```{r religious_population}
+``` r
 ggplot(religion_count) +
   geom_col(aes(x = as.factor(X_002), y = religion_yr_prop,
                fill = as.factor(religion_condensed)), position = "dodge") +
@@ -55,13 +85,17 @@ ggplot(religion_count) +
                     labels = c('1' = 'Catholic', '2' = 'Evangelical', '97' = 'No Religion'))
 ```
 
-* This bar chart shows the proportion of three main religious categories in Brazil (my criterion here was proportions over 5%) in terms of total population, from 2013 to 2018.
-* The graph suggests a slight proportional growth of Evangelicals throughout the observed time span.
+![](sample_religion_democracy_BR_files/figure-gfm/religious_population-1.png)<!-- -->
+
+-   This bar chart shows the proportion of three main religious
+    categories in Brazil (my criterion here was proportions over 5%) in
+    terms of total population, from 2013 to 2018.
+-   The graph suggests a slight proportional growth of Evangelicals
+    throughout the observed time span.
 
 ## Support to Democracy
 
-
-```{r democracy_support}
+``` r
 levels_of_support <- c('1' = 'Democracy Always Best', '2' = 'Authoritarian Maybe Best',
                        '3' = 'No Difference')
 ggplot(support_democracy_count) +
@@ -75,18 +109,23 @@ ggplot(support_democracy_count) +
                      labels = c('1' = 'Catholic', '2' = 'Evangelical', '97' = 'No Religion'))
 ```
 
-* In overall terms, the three biggest religious classifications seem to be following similar trends.
+![](sample_religion_democracy_BR_files/figure-gfm/democracy_support-1.png)<!-- -->
 
-* The variation among years is high.
+-   In overall terms, the three biggest religious classifications seem
+    to be following similar trends.
 
-* Strong support to democracy seems to have been substituted by political indifference among all three religious classifications.
+-   The variation among years is high.
 
-* The only possible exception might be the 'No Religion' group, whose strong support to democracy continued to increase between 2017 and 2018 in contrast to the other two groups.
+-   Strong support to democracy seems to have been substituted by
+    political indifference among all three religious classifications.
+
+-   The only possible exception might be the ‘No Religion’ group, whose
+    strong support to democracy continued to increase between 2017 and
+    2018 in contrast to the other two groups.
 
 ## Satisfaction with Democracy
 
-
-```{r democracy_satisfaction}
+``` r
 dataset_condensed %>%
   filter(A_003_031 > 0 & S_700 %in% main_religions) %>%
   group_by(X_002, religion_condensed) %>%
@@ -100,27 +139,55 @@ dataset_condensed %>%
                      labels = c('1' = 'Catholic', '2' = 'Evangelical', '97' = 'No Religion'))
 ```
 
-* Subverting expectations, this graph suggests an increase in the average answer to a scale measuring satisfaction with democracy for all three religious classifications throughout the observed years.
+![](sample_religion_democracy_BR_files/figure-gfm/democracy_satisfaction-1.png)<!-- -->
 
-* Here again the three different religious groups seem follow a similar trend.
+-   Subverting expectations, this graph suggests an increase in the
+    average answer to a scale measuring satisfaction with democracy for
+    all three religious classifications throughout the observed years.
 
-* The Catholics might have gone back to a decrease in satisfaction with democracy earlier than its peers, between 2016 and 2017.
+-   Here again the three different religious groups seem follow a
+    similar trend.
 
-* 2013 was a year distinguished by the explosion of large-scale protests, public discontentment with the then president Dilma Roussef of the center-left Workers Party, and the beginning of mainstream far-right political articulation. That could explain the perceptibly lower overall satisfaction around that time.
+-   The Catholics might have gone back to a decrease in satisfaction
+    with democracy earlier than its peers, between 2016 and 2017.
 
-* Between 2015 and 2016 the process of impeachment of Dilma Roussef unraveled with broad popular support, which could have helped to bounce back general satisfaction with the democratic regime.
+-   2013 was a year distinguished by the explosion of large-scale
+    protests, public discontentment with the then president Dilma
+    Roussef of the center-left Workers Party, and the beginning of
+    mainstream far-right political articulation. That could explain the
+    perceptibly lower overall satisfaction around that time.
+
+-   Between 2015 and 2016 the process of impeachment of Dilma Roussef
+    unraveled with broad popular support, which could have helped to
+    bounce back general satisfaction with the democratic regime.
 
 ## Conclusion
 
-As it is often the case in the social sciences, categories are not transparent and might have different readings in different contexts. An issue we can speculate about the research design is the possible inability of "satisfaction with democracy" scales to measure what has been called "illiberal democracies" or "populist democracies". People might have different standards to evaluate a democratic regime. Thus measuring their evaluations might get methodologically muddled with a measure of their own standards,  carrying difficulties for broader conclusions about political sentiments towards authoritarian regimes. Measures like these would be enriched by a better understanding of evaluation processes taken by the studied population.
+As it is often the case in the social sciences, categories are not
+transparent and might have different readings in different contexts. An
+issue we can speculate about the research design is the possible
+inability of “satisfaction with democracy” scales to measure what has
+been called “illiberal democracies” or “populist democracies”. People
+might have different standards to evaluate a democratic regime. Thus
+measuring their evaluations might get methodologically muddled with a
+measure of their own standards, carrying difficulties for broader
+conclusions about political sentiments towards authoritarian regimes.
+Measures like these would be enriched by a better understanding of
+evaluation processes taken by the studied population.
 
-That leads to my initial research question about the relationship between religious affiliation and sentiments towards democracy between 2013 and 2018. Accepting the presuppositions of the Latinobarometro, there is *little suggestion* of significant variation among the biggest three religious classifications.
+That leads to my initial research question about the relationship
+between religious affiliation and sentiments towards democracy between
+2013 and 2018. Accepting the presuppositions of the Latinobarometro,
+there is *little suggestion* of significant variation among the biggest
+three religious classifications.
 
-At last, it could also be the case that political indifference itself is more characteristic of current day Brazilian authoritarianism than explicit individual authoritarian alignment.
+At last, it could also be the case that political indifference itself is
+more characteristic of current day Brazilian authoritarianism than
+explicit individual authoritarian alignment.
 
-## Appendix 1 - data_cleaning.R
+## Appendix 1 - data\_cleaning.R
 
-```r
+``` r
 library(dplyr)
 library(readxl)
 #install.packages("sjlabelled")
@@ -204,7 +271,8 @@ variable_selection(BRAZIL_2015)
 full_dataset <- bind_rows(combining_dataset, BRAZIL_2018_FILTERED, BRAZIL_2017_FILTERED,
                       BRAZIL_2016_FILTERED, BRAZIL_2015_FILTERED)
 ```
-## Appendix 2 - data_analysis.R
+
+## Appendix 2 - data\_analysis.R
 
 ``` r
 library(dplyr)
